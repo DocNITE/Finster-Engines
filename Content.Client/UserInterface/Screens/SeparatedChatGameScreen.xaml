@@ -16,26 +16,44 @@
     VerticalAlignment="Bottom"
     HorizontalAlignment="Center">
     <controls:RecordedSplitContainer Name="ScreenContainer" HorizontalExpand="True" VerticalExpand="True" SplitWidth="0" StretchDirection="TopLeft">
-        <LayoutContainer Name="ViewportContainer" HorizontalExpand="True" VerticalExpand="True">
-            <controls:MainViewport Name="MainViewport"/>
-            <widgets:GhostGui Name="Ghost" Access="Protected" />
-            <inventory:InventoryGui Name="Inventory" Access="Protected"/>
-            <hotbar:HotbarGui Name="Hotbar" Access="Protected"/>
-            <targeting:TargetingControl Name="Targeting" Access="Protected"/>
-            <BoxContainer Name="TopLeftContainer" Orientation="Vertical">
-                <actions:ActionsBar Name="Actions" Access="Protected" />
-                <BoxContainer Name="VoteMenu" Access="Public" Orientation="Vertical"/>
-            </BoxContainer>
-            <alerts:AlertsUI Name="Alerts" Access="Protected" />
-        </LayoutContainer>
+        <BoxContainer Orientation="Horizontal" VerticalExpand="True">
+            <PanelContainer VerticalExpand="True" HorizontalExpand="False" MinWidth="220" MaxWidth="220">
+                <PanelContainer.PanelOverride>
+                    <graphics:StyleBoxFlat BackgroundColor="#191919" BorderColor="#3A3A3A" BorderThickness="1" />
+                </PanelContainer.PanelOverride>
+                <BoxContainer Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <inventory:InventoryGui Name="Inventory" Access="Protected"/>
+                </BoxContainer>
+            </PanelContainer>
+            <LayoutContainer Name="ViewportContainer" HorizontalExpand="True" VerticalExpand="True">
+                <controls:MainViewport Name="MainViewport"/>
+                <widgets:GhostGui Name="Ghost" Access="Protected" />
+                <hotbar:HotbarGui Name="Hotbar" Access="Protected"/>
+                <BoxContainer Name="TopLeftContainer" Orientation="Vertical">
+                    <actions:ActionsBar Name="Actions" Access="Protected" />
+                    <BoxContainer Name="VoteMenu" Access="Public" Orientation="Vertical"/>
+                </BoxContainer>
+            </LayoutContainer>
+        </BoxContainer>
         <PanelContainer HorizontalExpand="True" MinWidth="300">
             <PanelContainer.PanelOverride>
-                <graphics:StyleBoxFlat BackgroundColor="#191919" />
+                <graphics:StyleBoxFlat BackgroundColor="#191919" BorderColor="#3A3A3A" BorderThickness="1"/>
             </PanelContainer.PanelOverride>
 
-            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10" Margin="10">
-                <menuBar:GameTopMenuBar Name="TopBar" HorizontalExpand="True" Access="Protected" />
-                <chat:ChatBox VerticalExpand="True" HorizontalExpand="True" Name="Chat" Access="Protected" MinSize="0 0"/>
+            <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                <PanelContainer VerticalExpand="True" HorizontalExpand="False" MinWidth="96" MaxWidth="96">
+                    <PanelContainer.PanelOverride>
+                        <graphics:StyleBoxFlat BackgroundColor="#191919" />
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical" HorizontalAlignment="Center">
+                        <targeting:TargetingControl Name="Targeting" Access="Protected" />
+                        <alerts:AlertsUI Name="Alerts" Access="Protected" />
+                    </BoxContainer>
+                </PanelContainer>
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10" Margin="10">
+                    <menuBar:GameTopMenuBar Name="TopBar" HorizontalExpand="True" Access="Protected" />
+                    <chat:ChatBox VerticalExpand="True" HorizontalExpand="True" Name="Chat" Access="Protected" MinSize="0 0"/>
+                </BoxContainer>
             </BoxContainer>
         </PanelContainer>
     </controls:RecordedSplitContainer>

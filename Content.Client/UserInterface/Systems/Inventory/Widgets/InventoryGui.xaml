@@ -9,17 +9,10 @@
     Orientation="Horizontal"
     HorizontalAlignment="Center">
     <Control HorizontalAlignment="Center">
-        <controls:SlotButton
-            Name="InventoryButton"
-            Access="Public"
-            VerticalAlignment="Bottom"
-            HorizontalExpand="False"
-            VerticalExpand="False"
-            ButtonTexturePath="Slots/toggle"/>
         <inventory:ItemSlotButtonContainer
             Name="InventoryHotbar"
             Access="Public"
-            Visible="False"
+            Visible="True"
             MaxColumns="3"
             SlotGroup="Default"
             ExpandBackwards="True"

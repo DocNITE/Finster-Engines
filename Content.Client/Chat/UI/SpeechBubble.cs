@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Client.Chat.Managers;
+using Content.Client.Viewport;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Robust.Client.Graphics;
@@ -16,6 +17,7 @@ namespace Content.Client.Chat.UI
         [Dependency] private readonly IEyeManager _eyeManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] protected readonly IConfigurationManager ConfigManager = default!;
+        [Dependency] protected readonly  IUserInterfaceManager _uiManager = default!;
 
         public enum SpeechType : byte
         {
@@ -143,10 +145,13 @@ namespace Content.Client.Chat.UI
             var worldPos = xform.WorldPosition + offset;
 
             var lowerCenter = _eyeManager.WorldToScreen(worldPos) / UIScale;
+            if (_eyeManager.MainViewport is not ScalingViewport svp)
+                return;
+
             var screenPos = lowerCenter - new Vector2(ContentSize.X / 2, ContentSize.Y + _verticalOffsetAchieved);
             // Round to nearest 0.5
             screenPos = (screenPos * 2).Rounded() / 2;
-            LayoutContainer.SetPosition(this, screenPos);
+            LayoutContainer.SetPosition(this, screenPos - svp.GlobalPosition);
 
             var height = MathF.Ceiling(MathHelper.Clamp(lowerCenter.Y - screenPos.Y, 0, ContentSize.Y));
             SetHeight = height;
