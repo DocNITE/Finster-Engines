@@ -72,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#difficult_easy",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,12 +93,12 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "b7bc0b656a99e3d9",
@@ -184,7 +184,7 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "2823b2d1bd1fa438",
+  "active": "3c3dd0483b952fec",
   "lastOpenFiles": [
     "README.md",
     "TODO_LIST.md",

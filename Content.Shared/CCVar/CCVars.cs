@@ -2802,5 +2802,15 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<bool> UseDynamicHostname =
             CVarDef.Create("game.use_dynamic_hostname", false, CVar.SERVERONLY);
+
+        #region Development
+
+        /// <summary>
+        /// Run ShaderViewer only.
+        /// </summary>
+        public static readonly CVarDef<bool> LaunchShaderViewer =
+            CVarDef.Create("launch.shader_viewer", false, CVar.CLIENTONLY);
+
+        #endregion
     }
 }

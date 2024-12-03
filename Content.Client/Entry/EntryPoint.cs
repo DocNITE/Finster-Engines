@@ -36,6 +36,7 @@ using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
+using Content.Shared.CCVar;
 
 namespace Content.Client.Entry
 {
@@ -187,6 +188,14 @@ namespace Content.Client.Entry
         private void SwitchToDefaultState(bool disconnected = false)
         {
             // Fire off into state dependent on launcher or not.
+
+            // Check if wanna only use ShaderViewer screen
+            if (_configManager.GetCVar(CCVars.LaunchShaderViewer) == true)
+            {
+                _logManager.GetSawmill("entry").Info("Loading shader viewer screen, instead of the game!");
+                _stateManager.RequestStateChange<_Finster.ShaderViewer.ShaderViewerScreen>();
+                return;
+            }
 
             // Check if we're loading a replay via content bundle!
             if (_configManager.GetCVar(CVars.LaunchContentBundle)

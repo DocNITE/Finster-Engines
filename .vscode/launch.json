@@ -52,6 +52,25 @@
             "preLaunchTask": "build"
         },
         {
+            "name": "ShaderViewer",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Content.Client/Content.Client.dll",
+            "args": "--cvar launch.shader_viewer=true",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "ShaderViewer+Build",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Content.Client/Content.Client.dll",
+            "args": "--cvar launch.shader_viewer=true",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "preLaunchTask": "build"
+        },
+        {
             "name": "YAML Linter",
             "type": "coreclr",
             "request": "launch",

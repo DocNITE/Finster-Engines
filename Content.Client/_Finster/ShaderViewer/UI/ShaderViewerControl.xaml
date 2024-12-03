@@ -1,0 +1,26 @@
+﻿<Control xmlns="https://spacestation14.io"
+         xmlns:pllax="clr-namespace:Content.Client.Parallax"
+         xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+         xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+         xmlns:clog="clr-namespace:Content.Client.Changelog">
+    <pllax:ParallaxControl />
+
+    <controls:RecordedSplitContainer Name="ScreenContainer"
+        HorizontalExpand="True" VerticalExpand="True" SplitWidth="0" StretchDirection="TopLeft">
+        <TextureRect Name="Background"
+                     Access="Public"
+                     VerticalExpand="True"
+                     HorizontalExpand="True"
+                     VerticalAlignment="Center"
+                     Stretch="KeepAspect" />
+        <PanelContainer HorizontalExpand="True" MinWidth="300" MaxWidth="900">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#191919" />
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                <ItemList Name="ShadersItemList" Access="Public" SelectMode="Single" VerticalExpand="True" MaxHeight="350"/>
+                <ItemList Name="BacksItemList" Access="Public" SelectMode="Single" VerticalExpand="True" MaxHeight="350"/>
+            </BoxContainer>
+        </PanelContainer>
+    </controls:RecordedSplitContainer>
+</Control>
