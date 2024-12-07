@@ -29,7 +29,7 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction OpenLanguageMenu = "OpenLanguageMenu";
         public static readonly BoundKeyFunction OpenCraftingMenu = "OpenCraftingMenu";
         public static readonly BoundKeyFunction OpenGuidebook = "OpenGuidebook";
-        public static readonly BoundKeyFunction OpenInventoryMenu = "OpenInventoryMenu";
+        //public static readonly BoundKeyFunction OpenInventoryMenu = "OpenInventoryMenu";
         public static readonly BoundKeyFunction SmartEquipBackpack = "SmartEquipBackpack";
         public static readonly BoundKeyFunction SmartEquipBelt = "SmartEquipBelt";
         public static readonly BoundKeyFunction OpenBackpack = "OpenBackpack";
@@ -60,6 +60,7 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction OfferItem = "OfferItem";
         public static readonly BoundKeyFunction ToggleStanding = "ToggleStanding";
         public static readonly BoundKeyFunction ToggleCrawlingUnder = "ToggleCrawlingUnder";
+        public static readonly BoundKeyFunction ToggleCombatMode = "ToggleCombatMode";
         public static readonly BoundKeyFunction LookUp = "LookUp";
         public static readonly BoundKeyFunction TargetHead = "TargetHead";
         public static readonly BoundKeyFunction TargetTorso = "TargetTorso";
