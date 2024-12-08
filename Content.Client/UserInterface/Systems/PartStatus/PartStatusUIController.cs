@@ -7,6 +7,7 @@ using Robust.Client.UserInterface.Controllers;
 using Robust.Client.Player;
 using Robust.Shared.Utility;
 using Robust.Client.Graphics;
+using Content.Client.UserInterface.Systems.Targeting.Widgets;
 
 
 namespace Content.Client.UserInterface.Systems.PartStatus;
@@ -17,7 +18,7 @@ public sealed class PartStatusUIController : UIController, IOnStateEntered<Gamep
     [Dependency] private readonly IEntityNetworkManager _net = default!;
     private SpriteSystem _spriteSystem = default!;
     private TargetingComponent? _targetingComponent;
-    private PartStatusControl? PartStatusControl => UIManager.GetActiveUIWidgetOrNull<PartStatusControl>();
+    private TargetingControl? PartStatusControl => UIManager.GetActiveUIWidgetOrNull<TargetingControl>();
 
     public void OnSystemLoaded(TargetingSystem system)
     {
@@ -37,7 +38,7 @@ public sealed class PartStatusUIController : UIController, IOnStateEntered<Gamep
     {
         if (PartStatusControl != null)
         {
-            PartStatusControl.SetVisible(_targetingComponent != null);
+            //PartStatusControl.SetVisible(_targetingComponent != null);
 
             if (_targetingComponent != null)
                 PartStatusControl.SetTextures(_targetingComponent.BodyStatus);
@@ -50,7 +51,7 @@ public sealed class PartStatusUIController : UIController, IOnStateEntered<Gamep
 
         if (PartStatusControl != null)
         {
-            PartStatusControl.SetVisible(_targetingComponent != null);
+            //PartStatusControl.SetVisible(_targetingComponent != null);
 
             if (_targetingComponent != null)
                 PartStatusControl.SetTextures(_targetingComponent.BodyStatus);
@@ -60,8 +61,8 @@ public sealed class PartStatusUIController : UIController, IOnStateEntered<Gamep
 
     public void RemovePartStatusControl()
     {
-        if (PartStatusControl != null)
-            PartStatusControl.SetVisible(false);
+        //if (PartStatusControl != null)
+            //PartStatusControl.SetVisible(false);
 
         _targetingComponent = null;
     }

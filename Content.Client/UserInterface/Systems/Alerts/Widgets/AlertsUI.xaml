@@ -6,6 +6,5 @@
         <PanelContainer >
             <BoxContainer Name="AlertContainer" Access="Public" Orientation="Vertical" />
         </PanelContainer>
-        <partStatus:PartStatusControl Name="PartStatus" Access="Protected"/>
     </GridContainer>
 </widgets:AlertsUI>
