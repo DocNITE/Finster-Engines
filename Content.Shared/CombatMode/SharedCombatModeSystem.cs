@@ -25,13 +25,13 @@ public abstract class SharedCombatModeSystem : EntitySystem
 
     private void OnMapInit(EntityUid uid, CombatModeComponent component, MapInitEvent args)
     {
-        _actionsSystem.AddAction(uid, ref component.CombatToggleActionEntity, component.CombatToggleAction);
+        //_actionsSystem.AddAction(uid, ref component.CombatToggleActionEntity, component.CombatToggleAction);
         Dirty(uid, component);
     }
 
     private void OnShutdown(EntityUid uid, CombatModeComponent component, ComponentShutdown args)
     {
-        _actionsSystem.RemoveAction(uid, component.CombatToggleActionEntity);
+        //_actionsSystem.RemoveAction(uid, component.CombatToggleActionEntity);
 
         SetMouseRotatorComponents(uid, false);
     }
@@ -42,6 +42,11 @@ public abstract class SharedCombatModeSystem : EntitySystem
             return;
 
         args.Handled = true;
+        PerformAction(uid, component, args.Performer);
+    }
+
+    public void PerformAction(EntityUid uid, CombatModeComponent component, EntityUid performer)
+    {
         SetInCombatMode(uid, !component.IsInCombatMode, component);
 
         // TODO better handling of predicted pop-ups.
@@ -51,7 +56,7 @@ public abstract class SharedCombatModeSystem : EntitySystem
             return;
 
         var msg = component.IsInCombatMode ? "action-popup-combat-enabled" : "action-popup-combat-disabled";
-        _popup.PopupEntity(Loc.GetString(msg), args.Performer, args.Performer);
+        _popup.PopupEntity(Loc.GetString(msg), performer, performer);
     }
 
     public void SetCanDisarm(EntityUid entity, bool canDisarm, CombatModeComponent? component = null)
@@ -78,8 +83,8 @@ public abstract class SharedCombatModeSystem : EntitySystem
         component.IsInCombatMode = value;
         Dirty(entity, component);
 
-        if (component.CombatToggleActionEntity != null)
-            _actionsSystem.SetToggled(component.CombatToggleActionEntity, component.IsInCombatMode);
+        //if (component.CombatToggleActionEntity != null)
+        //    _actionsSystem.SetToggled(component.CombatToggleActionEntity, component.IsInCombatMode);
 
         // Change mouse rotator comps if flag is set
         if (!component.ToggleMouseRotator || IsNpc(entity))

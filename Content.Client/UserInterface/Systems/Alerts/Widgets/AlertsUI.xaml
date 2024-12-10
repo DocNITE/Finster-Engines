@@ -1,11 +1,12 @@
 ﻿<widgets:AlertsUI xmlns="https://spacestation14.io"
                   xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.Alerts.Widgets"
                   xmlns:partStatus="clr-namespace:Content.Client.UserInterface.Systems.PartStatus.Widgets"
-                  MinSize="64 64">
-    <GridContainer Columns="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                  MinSize="64 64"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+    <GridContainer Columns="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
         <PanelContainer >
             <BoxContainer Name="AlertContainer" Access="Public" Orientation="Vertical" />
         </PanelContainer>
-        <partStatus:PartStatusControl Name="PartStatus" Access="Protected"/>
     </GridContainer>
 </widgets:AlertsUI>

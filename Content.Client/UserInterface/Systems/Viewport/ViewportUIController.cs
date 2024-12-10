@@ -5,6 +5,7 @@ using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Configuration;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Client.UserInterface.Systems.Viewport;
@@ -15,6 +16,7 @@ public sealed class ViewportUIController : UIController
     [Dependency] private readonly IPlayerManager _playerMan = default!;
     [Dependency] private readonly IEntityManager _entMan = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
     public static readonly Vector2i ViewportSize = (EyeManager.PixelsPerMeter * 21, EyeManager.PixelsPerMeter * 15);
     public const int ViewportHeight = 15;
@@ -26,6 +28,7 @@ public sealed class ViewportUIController : UIController
         _configurationManager.OnValueChanged(CCVars.ViewportMaximumWidth, _ => UpdateViewportRatio());
         _configurationManager.OnValueChanged(CCVars.ViewportWidth, _ => UpdateViewportRatio());
         _configurationManager.OnValueChanged(CCVars.ViewportVerticalFit, _ => UpdateViewportRatio());
+        _configurationManager.OnValueChanged(CCVars.ViewportFilter, _ => UpdateViewportFilter());
 
         var gameplayStateLoad = UIManager.GetUIController<GameplayStateLoadController>();
         gameplayStateLoad.OnScreenLoad += OnScreenLoad;
@@ -54,11 +57,29 @@ public sealed class ViewportUIController : UIController
         }
         else if (width < min || width > max)
         {
-            width = CCVars.ViewportWidth.DefaultValue;
+            width = max; //CCVars.ViewportWidth.DefaultValue;
         }
 
         Viewport.Viewport.ViewportSize = (EyeManager.PixelsPerMeter * width, EyeManager.PixelsPerMeter * ViewportHeight);
         Viewport.UpdateCfg();
+    }
+
+    public void UpdateViewportFilter()
+    {
+        if (Viewport == null)
+        {
+            return;
+        }
+
+        var shaderName = _configurationManager.GetCVar(CCVars.ViewportFilter);
+        if (shaderName != "None")
+        {
+            Viewport.Viewport.Shader = _prototypeManager.Index<ShaderPrototype>(shaderName).InstanceUnique();
+        }
+        else
+        {
+            Viewport.Viewport.Shader = null;
+        }
     }
 
     public void ReloadViewport()
@@ -68,6 +89,17 @@ public sealed class ViewportUIController : UIController
             return;
         }
 
+        var shaderName = _configurationManager.GetCVar(CCVars.ViewportFilter);
+        if (shaderName != "None")
+        {
+            Viewport.Viewport.Shader = _prototypeManager.Index<ShaderPrototype>(shaderName).InstanceUnique();
+        }
+        else
+        {
+            Viewport.Viewport.Shader = null;
+        }
+
+        UpdateViewportFilter();
         UpdateViewportRatio();
         Viewport.Viewport.HorizontalExpand = true;
         Viewport.Viewport.VerticalExpand = true;

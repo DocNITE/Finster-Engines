@@ -66,6 +66,7 @@ ui-options-lighting-low = Low
 ui-options-lighting-medium = Medium
 ui-options-lighting-high = High
 ui-options-scale-label = UI Scale:
+ui-options-filter-label = Viewport Filter:
 ui-options-scale-auto = Automatic ({ TOSTRING($scale, "P0") })
 ui-options-scale-75 = 75%
 ui-options-scale-100 = 100%
@@ -154,6 +155,7 @@ ui-options-function-offer-item = Offer something
 ui-options-function-save-item-location = Save item location
 ui-options-function-toggle-standing = Toggle standing
 ui-options-function-toggle-crawling-under = Toggle crawling under furniture
+ui-options-function-toggle-combat-mode = Toggle combat mode
 ui-options-static-storage-ui = Lock storage window to hotbar
 
 ui-options-function-smart-equip-backpack = Smart-equip to backpack

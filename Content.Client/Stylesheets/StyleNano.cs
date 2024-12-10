@@ -1665,13 +1665,13 @@ namespace Content.Client.Stylesheets
                     .Pseudo(TextureButton.StylePseudoClassHover)
                     .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/rightfoot_hover.png")),
 
-                Element<TextureButton>().Class("TargetDollButtonEyes")
-                    .Pseudo(TextureButton.StylePseudoClassHover)
-                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/eyes_hover.png")),
+                //Element<TextureButton>().Class("TargetDollButtonEyes")
+                //    .Pseudo(TextureButton.StylePseudoClassHover)
+                //    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/eyes_hover.png")),
 
-                Element<TextureButton>().Class("TargetDollButtonMouth")
-                    .Pseudo(TextureButton.StylePseudoClassHover)
-                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/mouth_hover.png")),
+                //Element<TextureButton>().Class("TargetDollButtonMouth")
+                //    .Pseudo(TextureButton.StylePseudoClassHover)
+                //    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/mouth_hover.png")),
                 // Shitmed Edit End
 
             }).ToList());

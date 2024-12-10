@@ -1907,6 +1907,9 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<bool> ViewportVerticalFit =
             CVarDef.Create("viewport.vertical_fit", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+        public static readonly CVarDef<string> ViewportFilter =
+            CVarDef.Create("viewport.filter", "LoraNoise", CVar.CLIENTONLY | CVar.ARCHIVE);
+
         /*
          * FOV
          */
@@ -2211,7 +2214,7 @@ namespace Content.Shared.CCVar
         /// Toggles whether the walking key is a toggle or a held key.
         /// </summary>
         public static readonly CVarDef<bool> ToggleWalk =
-            CVarDef.Create("control.toggle_walk", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+            CVarDef.Create("control.toggle_walk", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
         /// <summary>
         /// Whether the player mob is walking by default instead of running.

@@ -48,7 +48,9 @@
                                     Access="Public"
                                     ButtonText="{Loc 'ui-lobby-options-button'}"
                                     Margin="0 10 0 10" />
-                                <vote:VoteCallMenuButton Name="CallVoteButton"
+                                <buttons:WhiteLobbyTextButton Name="CallVoteButton"
+                                    Access="Public"
+                                    ButtonText="{Loc 'ui-vote-menu-button'}"
                                     Margin="0 10 0 10"/>
                                 <buttons:WhiteLobbyTextButton Name="AHelpButton"
                                     Access="Public"

@@ -1,4 +1,0 @@
-- type: shader
-  id: CRT
-  kind: source
-  path: "/Textures/_Finster/Shaders/crt.swsl"

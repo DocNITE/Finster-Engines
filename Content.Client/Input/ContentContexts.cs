@@ -69,7 +69,7 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.MovePulledObject);
             human.AddFunction(ContentKeyFunctions.ReleasePulledObject);
             human.AddFunction(ContentKeyFunctions.OpenCraftingMenu);
-            human.AddFunction(ContentKeyFunctions.OpenInventoryMenu);
+            //human.AddFunction(ContentKeyFunctions.OpenInventoryMenu);
             human.AddFunction(ContentKeyFunctions.SmartEquipBackpack);
             human.AddFunction(ContentKeyFunctions.SmartEquipBelt);
             human.AddFunction(ContentKeyFunctions.OpenBackpack);
@@ -77,6 +77,7 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.OfferItem);
             human.AddFunction(ContentKeyFunctions.ToggleStanding);
             human.AddFunction(ContentKeyFunctions.ToggleCrawlingUnder);
+            human.AddFunction(ContentKeyFunctions.ToggleCombatMode);
             human.AddFunction(ContentKeyFunctions.MouseMiddle);
             human.AddFunction(ContentKeyFunctions.ArcadeUp);
             human.AddFunction(ContentKeyFunctions.ArcadeDown);

@@ -97,7 +97,7 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
             //_inventoryHotbar.Visible = false;
         }
 
-        CommandBinds.Unregister<ClientInventorySystem>();
+        //CommandBinds.Unregister<ClientInventorySystem>();
     }
 
     private SlotButton CreateSlotButton(SlotData data)

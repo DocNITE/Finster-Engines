@@ -6,6 +6,7 @@ using Robust.Client.Graphics;
 using Robust.Client.Input;
 using Robust.Client.Player;
 using Robust.Shared.Configuration;
+using Robust.Shared.Player;
 
 namespace Content.Client.CombatMode;
 
@@ -22,11 +23,21 @@ public sealed class CombatModeSystem : SharedCombatModeSystem
     /// </summary>
     public event Action<bool>? LocalPlayerCombatModeUpdated;
 
+    /// <summary>
+    /// Raised whan UpdateHud has been called.
+    /// </summary>
+    public event Action<bool, bool>? LocalPlayerCombatModeHudUpdate;
+
+    public Action<EntityUid>? LocalPlayerAttached;
+    public Action<EntityUid>? LocalPlayerDetached;
+
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<CombatModeComponent, AfterAutoHandleStateEvent>(OnHandleState);
+        SubscribeLocalEvent<CombatModeComponent, LocalPlayerAttachedEvent>(OnPlayerAttached);
+        SubscribeLocalEvent<CombatModeComponent, LocalPlayerDetachedEvent>(OnPlayerDetached);
 
         Subs.CVar(_cfg, CCVars.CombatModeIndicatorsPointShow, OnShowCombatIndicatorsChanged, true);
     }
@@ -34,6 +45,16 @@ public sealed class CombatModeSystem : SharedCombatModeSystem
     private void OnHandleState(EntityUid uid, CombatModeComponent component, ref AfterAutoHandleStateEvent args)
     {
         UpdateHud(uid);
+    }
+
+    private void OnPlayerDetached(EntityUid uid, CombatModeComponent component, LocalPlayerDetachedEvent args)
+    {
+        LocalPlayerAttached?.Invoke(uid);
+    }
+
+    private void OnPlayerAttached(EntityUid uid, CombatModeComponent component, LocalPlayerAttachedEvent args)
+    {
+        LocalPlayerDetached?.Invoke(uid);
     }
 
     public override void Shutdown()
@@ -53,6 +74,20 @@ public sealed class CombatModeSystem : SharedCombatModeSystem
         return IsInCombatMode(entity.Value);
     }
 
+    public void LocalToggleCombatMode()
+    {
+        var uid = _playerManager.LocalEntity;
+
+        if (uid == null)
+            return;
+
+        if (!TryComp(uid, out CombatModeComponent? comp))
+            return;
+
+        //PerformAction(uid.Value, comp, uid.Value);
+        RaiseNetworkEvent(new ToggleCombatModeEvent());
+    }
+
     public override void SetInCombatMode(EntityUid entity, bool value, CombatModeComponent? component = null)
     {
         base.SetInCombatMode(entity, value, component);
@@ -66,12 +101,16 @@ public sealed class CombatModeSystem : SharedCombatModeSystem
 
     private void UpdateHud(EntityUid entity)
     {
-        if (entity != _playerManager.LocalEntity || !Timing.IsFirstTimePredicted)
-        {
+        if (entity != _playerManager.LocalEntity)
             return;
-        }
 
         var inCombatMode = IsInCombatMode();
+
+        LocalPlayerCombatModeHudUpdate?.Invoke(inCombatMode, Timing.IsFirstTimePredicted);
+
+        if (!Timing.IsFirstTimePredicted)
+            return;
+
         LocalPlayerCombatModeUpdated?.Invoke(inCombatMode);
     }
 

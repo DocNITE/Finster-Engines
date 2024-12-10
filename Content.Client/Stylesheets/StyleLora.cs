@@ -25,6 +25,20 @@ namespace Content.Client.Stylesheets
         public const string StyleClassLabelSubText = "LabelSubText";
         public const string StyleClassItalic = "Italic";
 
+        public const string StyleClassTargetDollButtonHead = "TargetDollButtonHead";
+        public const string StyleClassTargetDollButtonChest = "TargetDollButtonChest";
+        public const string StyleClassTargetDollButtonGroin = "TargetDollButtonGroin";
+        public const string StyleClassTargetDollButtonLeftArm = "TargetDollButtonLeftArm";
+        public const string StyleClassTargetDollButtonLeftHand = "TargetDollButtonLeftHand";
+        public const string StyleClassTargetDollButtonRightArm = "TargetDollButtonRightArm";
+        public const string StyleClassTargetDollButtonRightHand = "TargetDollButtonRightHand";
+        public const string StyleClassTargetDollButtonLeftLeg = "TargetDollButtonLeftLeg";
+        public const string StyleClassTargetDollButtonLeftFoot = "TargetDollButtonLeftFoot";
+        public const string StyleClassTargetDollButtonRightLeg = "TargetDollButtonRightLeg";
+        public const string StyleClassTargetDollButtonRightFoot = "TargetDollButtonRightFoot";
+        public const string StyleClassTargetDollButtonEyes = "TargetDollButtonEyes";
+        public const string StyleClassTargetDollButtonMouth = "TargetDollButtonMouth";
+
         public const string ClassAngleRect = "AngleRect";
 
         public const string ButtonOpenRight = "OpenRight";
@@ -377,6 +391,10 @@ namespace Content.Client.Stylesheets
         public const string StyleClassButtonColorGreen = "ButtonColorGreen";
 
         public static readonly Color ChatBackgroundColor = Color.FromHex("#141414DD");
+
+        //Bwoink
+        public const string StyleClassPinButtonPinned = "pinButtonPinned";
+        public const string StyleClassPinButtonUnpinned = "pinButtonUnpinned";
 
         public override Stylesheet Stylesheet { get; }
 
@@ -1853,6 +1871,74 @@ namespace Content.Client.Stylesheets
                     {
                         BackgroundColor = FancyTreeSelectedRowColor,
                     }),
+                // Pinned button style
+                new StyleRule(
+                    new SelectorElement(typeof(TextureButton), new[] { StyleClassPinButtonPinned }, null, null),
+                    new[]
+                    {
+                        new StyleProperty(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Bwoink/pinned.png"))
+                    }),
+
+                // Unpinned button style
+                new StyleRule(
+                    new SelectorElement(typeof(TextureButton), new[] { StyleClassPinButtonUnpinned }, null, null),
+                    new[]
+                    {
+                        new StyleProperty(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Bwoink/un_pinned.png"))
+                    }),
+                // Shitmed Edit Start
+                Element<TextureButton>().Class(StyleClassTargetDollButtonHead)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/head_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonChest)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/torso_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonGroin)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/groin_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftArm)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/leftarm_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftHand)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/lefthand_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightArm)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/rightarm_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightHand)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/righthand_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftLeg)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/leftleg_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftFoot)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/leftfoot_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightLeg)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/rightleg_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightFoot)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/rightfoot_hover.png")),
+
+                //Element<TextureButton>().Class(StyleClassTargetDollButtonEyes)
+                //    .Pseudo(TextureButton.StylePseudoClassHover)
+                //    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/eyes_hover.png")),
+
+                //Element<TextureButton>().Class(StyleClassTargetDollButtonMouth)
+                //    .Pseudo(TextureButton.StylePseudoClassHover)
+                //    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/mouth_hover.png")),
+                // Shitmed Edit End
             }).ToList());
         }
     }
