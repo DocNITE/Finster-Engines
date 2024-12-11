@@ -31,8 +31,8 @@ public sealed partial class ContentAudioSystem
     [Dependency] private readonly RulesSystem _rules = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
 
-    private readonly TimeSpan _minAmbienceTime = TimeSpan.FromSeconds(30);
-    private readonly TimeSpan _maxAmbienceTime = TimeSpan.FromSeconds(60);
+    private TimeSpan _minAmbienceTime = TimeSpan.FromSeconds(0);
+    private TimeSpan _maxAmbienceTime = TimeSpan.FromSeconds(0);
 
     private const float AmbientMusicFadeTime = 10f;
     private static float _volumeSlider;
@@ -99,8 +99,14 @@ public sealed partial class ContentAudioSystem
         if (obj.NewState is not GameplayState)
             return;
 
+        var nextAudioTime = TimeSpan.FromSeconds(0);
+        if (_minAmbienceTime.Seconds <= 0 && _maxAmbienceTime.Seconds <= 0)
+            nextAudioTime = TimeSpan.FromSeconds(0); // ???
+        else
+            nextAudioTime = _random.Next(_minAmbienceTime, _maxAmbienceTime);
+
         // If they go to game then reset the ambience timer.
-        _nextAudio = _timing.CurTime + _random.Next(_minAmbienceTime, _maxAmbienceTime);
+        _nextAudio = _timing.CurTime + nextAudioTime;
     }
 
     private void SetupAmbientSounds()
@@ -183,8 +189,14 @@ public sealed partial class ContentAudioSystem
         // If ambience finished reset the CD (this also means if we have long ambience it won't clip)
         if (isDone == true)
         {
+            var nextAudioTime = TimeSpan.FromSeconds(0);
+            if (_minAmbienceTime.Seconds <= 0 && _maxAmbienceTime.Seconds <= 0)
+                nextAudioTime = TimeSpan.FromSeconds(0); // ???
+            else
+                nextAudioTime = _random.Next(_minAmbienceTime, _maxAmbienceTime);
+
             // Also don't need to worry about rounding here as it doesn't affect the sim
-            _nextAudio = _timing.CurTime + _random.Next(_minAmbienceTime, _maxAmbienceTime);
+            _nextAudio = _timing.CurTime + nextAudioTime;
         }
 
         _ambientMusicStream = null;
@@ -201,6 +213,8 @@ public sealed partial class ContentAudioSystem
         }
 
         _interruptable = _musicProto.Interruptable;
+        _minAmbienceTime = TimeSpan.FromSeconds(_musicProto.MinCooldownTime);
+        _maxAmbienceTime = TimeSpan.FromSeconds(_musicProto.MaxCooldownTime);
         var tracks = _ambientSounds[_musicProto.ID];
 
         var track = tracks[^1];

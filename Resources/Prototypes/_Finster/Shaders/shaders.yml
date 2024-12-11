@@ -1,0 +1,24 @@
+- type: shader
+  id: CRT
+  kind: source
+  path: "/Textures/_Finster/Shaders/crt.swsl"
+
+- type: shader
+  id: BETTER_CRT
+  kind: source
+  path: "/Textures/_Finster/Shaders/bettercrt.swsl"
+
+- type: shader
+  id: LoraCRT
+  kind: source
+  path: "/Textures/_Finster/Shaders/gamecrt.swsl"
+
+- type: shader
+  id: LoraNoise
+  kind: source
+  path: "/Textures/_Finster/Shaders/gamenoise.swsl"
+
+- type: shader
+  id: Anime
+  kind: source
+  path: "/Textures/_Finster/Shaders/anime.swsl"

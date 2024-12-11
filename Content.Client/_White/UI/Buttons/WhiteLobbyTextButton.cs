@@ -26,7 +26,7 @@ public class WhiteLobbyTextButton : TextureButton
     {
         IoCManager.InjectDependencies(this);
 
-        _font = new VectorFont(_resourceCache.GetResource<FontResource>("/Fonts/Lora/Lora-SemiBold.ttf"), 15);
+        _font = new VectorFont(_resourceCache.GetResource<FontResource>("/Fonts/BlackmoorLet/BlackmoorLet.ttf"), 20);
     }
 
     private void RebuildTexture()

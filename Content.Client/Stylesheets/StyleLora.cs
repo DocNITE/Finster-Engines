@@ -25,6 +25,20 @@ namespace Content.Client.Stylesheets
         public const string StyleClassLabelSubText = "LabelSubText";
         public const string StyleClassItalic = "Italic";
 
+        public const string StyleClassTargetDollButtonHead = "TargetDollButtonHead";
+        public const string StyleClassTargetDollButtonChest = "TargetDollButtonChest";
+        public const string StyleClassTargetDollButtonGroin = "TargetDollButtonGroin";
+        public const string StyleClassTargetDollButtonLeftArm = "TargetDollButtonLeftArm";
+        public const string StyleClassTargetDollButtonLeftHand = "TargetDollButtonLeftHand";
+        public const string StyleClassTargetDollButtonRightArm = "TargetDollButtonRightArm";
+        public const string StyleClassTargetDollButtonRightHand = "TargetDollButtonRightHand";
+        public const string StyleClassTargetDollButtonLeftLeg = "TargetDollButtonLeftLeg";
+        public const string StyleClassTargetDollButtonLeftFoot = "TargetDollButtonLeftFoot";
+        public const string StyleClassTargetDollButtonRightLeg = "TargetDollButtonRightLeg";
+        public const string StyleClassTargetDollButtonRightFoot = "TargetDollButtonRightFoot";
+        public const string StyleClassTargetDollButtonEyes = "TargetDollButtonEyes";
+        public const string StyleClassTargetDollButtonMouth = "TargetDollButtonMouth";
+
         public const string ClassAngleRect = "AngleRect";
 
         public const string ButtonOpenRight = "OpenRight";
@@ -378,6 +392,10 @@ namespace Content.Client.Stylesheets
 
         public static readonly Color ChatBackgroundColor = Color.FromHex("#141414DD");
 
+        //Bwoink
+        public const string StyleClassPinButtonPinned = "pinButtonPinned";
+        public const string StyleClassPinButtonUnpinned = "pinButtonUnpinned";
+
         public override Stylesheet Stylesheet { get; }
 
         public Font SmallFont { get; }
@@ -406,7 +424,7 @@ namespace Content.Client.Stylesheets
             var loraBold16 = resCache.LoraStack(variation: "Bold", size: 16);
             var loraBold18 = resCache.LoraStack(variation: "Bold", size: 18);
             var loraBold20 = resCache.LoraStack(variation: "Bold", size: 20);
-            var notoSansMono = resCache.GetFont("/EngineFonts/NotoSans/NotoSansMono-Regular.ttf", size: 12);
+            var goMono = resCache.GetFont("/Fonts/GoMono/GoMonoNerdFontMono-Regular.ttf", size: 12);
             var windowHeaderTex = resCache.GetTexture("/Textures/Interface/Lora/window_header.png");
             var windowHeader = new StyleBoxTexture
             {
@@ -740,7 +758,8 @@ namespace Content.Client.Stylesheets
             var sliderFillBlue = new StyleBoxTexture(sliderFillBox) { Modulate = Color.Blue };
             var sliderFillWhite = new StyleBoxTexture(sliderFillBox) { Modulate = Color.White };
 
-            var boxFont13 = resCache.GetFont("/Fonts/Boxfont-round/Boxfont Round.ttf", 13);
+            var blackmoorFont13 = resCache.GetFont("/Fonts/BlackmoorLet/BlackmoorLet.ttf", 18);
+            var blackmoorFont14 = resCache.GetFont("/Fonts/BlackmoorLet/BlackmoorLet.ttf", 18);
 
             var insetBack = new StyleBoxTexture
             {
@@ -768,14 +787,14 @@ namespace Content.Client.Stylesheets
             Stylesheet = new Stylesheet(BaseRules.Concat(new[]
             {
                 Element().Class("monospace")
-                    .Prop("font", notoSansMono),
+                    .Prop("font", goMono),
                 // Window title.
                 new StyleRule(
                     new SelectorElement(typeof(Label), new[] {DefaultWindow.StyleClassWindowTitle}, null, null),
                     new[]
                     {
                         new StyleProperty(Label.StylePropertyFontColor, LoraPurple),
-                        new StyleProperty(Label.StylePropertyFont, loraDisplayBold14),
+                        new StyleProperty(Label.StylePropertyFont, blackmoorFont14),
                     }),
                 // Alert (white) window title.
                 new StyleRule(
@@ -783,7 +802,7 @@ namespace Content.Client.Stylesheets
                     new[]
                     {
                         new StyleProperty(Label.StylePropertyFontColor, Color.White),
-                        new StyleProperty(Label.StylePropertyFont, loraDisplayBold14),
+                        new StyleProperty(Label.StylePropertyFont, blackmoorFont14),
                     }),
                 // Window background.
                 new StyleRule(
@@ -1633,7 +1652,7 @@ namespace Content.Client.Stylesheets
 
                 // Window Headers
                 Element<Label>().Class("FancyWindowTitle")
-                    .Prop("font", boxFont13)
+                    .Prop("font", blackmoorFont13)
                     .Prop("font-color", LoraPurple),
 
                 Element<PanelContainer>().Class("WindowHeadingBackground")
@@ -1853,6 +1872,74 @@ namespace Content.Client.Stylesheets
                     {
                         BackgroundColor = FancyTreeSelectedRowColor,
                     }),
+                // Pinned button style
+                new StyleRule(
+                    new SelectorElement(typeof(TextureButton), new[] { StyleClassPinButtonPinned }, null, null),
+                    new[]
+                    {
+                        new StyleProperty(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Bwoink/pinned.png"))
+                    }),
+
+                // Unpinned button style
+                new StyleRule(
+                    new SelectorElement(typeof(TextureButton), new[] { StyleClassPinButtonUnpinned }, null, null),
+                    new[]
+                    {
+                        new StyleProperty(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Bwoink/un_pinned.png"))
+                    }),
+                // Shitmed Edit Start
+                Element<TextureButton>().Class(StyleClassTargetDollButtonHead)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/head_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonChest)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/torso_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonGroin)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/groin_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftArm)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/leftarm_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftHand)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/lefthand_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightArm)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/rightarm_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightHand)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/righthand_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftLeg)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/leftleg_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonLeftFoot)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/leftfoot_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightLeg)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/rightleg_hover.png")),
+
+                Element<TextureButton>().Class(StyleClassTargetDollButtonRightFoot)
+                    .Pseudo(TextureButton.StylePseudoClassHover)
+                    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/rightfoot_hover.png")),
+
+                //Element<TextureButton>().Class(StyleClassTargetDollButtonEyes)
+                //    .Pseudo(TextureButton.StylePseudoClassHover)
+                //    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/eyes_hover.png")),
+
+                //Element<TextureButton>().Class(StyleClassTargetDollButtonMouth)
+                //    .Pseudo(TextureButton.StylePseudoClassHover)
+                //    .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Targeting/Doll/mouth_hover.png")),
+                // Shitmed Edit End
             }).ToList());
         }
     }

@@ -1,0 +1,14 @@
+<widgets:NativeActionsGui
+    xmlns="https://spacestation14.io"
+    xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.NativeActions.Widgets"
+    Name="NativeActionsInterface"
+    MinSize="64 64"
+    VerticalAlignment="Bottom"
+    Orientation="Horizontal"
+    HorizontalAlignment="Center">
+    <GridContainer Columns="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <PanelContainer >
+            <BoxContainer Name="ActionsContainer" Access="Public" Orientation="Horizontal" />
+        </PanelContainer>
+    </GridContainer>
+</widgets:NativeActionsGui>

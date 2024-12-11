@@ -11,6 +11,7 @@
     xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     xmlns:inventory="clr-namespace:Content.Client.UserInterface.Systems.Inventory.Widgets"
     xmlns:targeting="clr-namespace:Content.Client.UserInterface.Systems.Targeting.Widgets"
+    xmlns:nactions="clr-namespace:Content.Client.UserInterface.Systems.NativeActions.Widgets"
     Name="SeparatedChatHud"
     VerticalExpand="False"
     VerticalAlignment="Bottom"
@@ -24,6 +25,9 @@
                 <BoxContainer Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 5 0 0">
                     <hotbar:HotbarGui Name="Hotbar" Access="Protected"/>
                     <inventory:InventoryGui Name="Inventory" Access="Protected"/>
+                </BoxContainer>
+                <BoxContainer Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5">
+                    <nactions:NativeActionsGui Name="NativeActions" Access="Public"/>
                 </BoxContainer>
             </PanelContainer>
             <LayoutContainer Name="ViewportContainer" Access="Public" HorizontalExpand="True" VerticalExpand="True">

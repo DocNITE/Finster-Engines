@@ -23,6 +23,13 @@ namespace Content.Client.Options.UI.Tabs
             2f
         };
 
+        private static readonly string[] ViewportFilterOptions =
+        {
+            "LoraNoise",
+            "LoraCRT",
+            "None" // It must be null, be we call it "None"
+        };
+
         [Dependency] private readonly IConfigurationManager _cfg = default!;
 
         public GraphicsTab()
@@ -49,6 +56,13 @@ namespace Content.Client.Options.UI.Tabs
             UIScaleOption.AddItem(Loc.GetString("ui-options-scale-200"));
             UIScaleOption.OnItemSelected += OnUIScaleChanged;
 
+            // TODO: Move all items definition into prototypes
+            foreach (var item in ViewportFilterOptions)
+            {
+                ViewportFilterOption.AddItem(item);
+            }
+            ViewportFilterOption.OnItemSelected += OnViewportFilterChanged;
+
             ViewportStretchCheckBox.OnToggled += _ =>
             {
                 UpdateViewportScale();
@@ -61,17 +75,11 @@ namespace Content.Client.Options.UI.Tabs
                 UpdateViewportScale();
             };
 
-            ViewportWidthSlider.OnValueChanged += _ =>
-            {
-                UpdateViewportWidthDisplay();
-                UpdateApplyButton();
-            };
-
-            ViewportVerticalFitCheckBox.OnToggled += _ =>
-            {
-                UpdateViewportScale();
-                UpdateApplyButton();
-            };
+            //ViewportVerticalFitCheckBox.OnToggled += _ =>
+            //{
+            //    UpdateViewportScale();
+            //    UpdateApplyButton();
+            //};
 
             IntegerScalingCheckBox.OnToggled += OnCheckBoxToggled;
             ViewportLowResCheckBox.OnToggled += OnCheckBoxToggled;
@@ -85,11 +93,11 @@ namespace Content.Client.Options.UI.Tabs
             ViewportScaleSlider.Value = _cfg.GetCVar(CCVars.ViewportFixedScaleFactor);
             ViewportStretchCheckBox.Pressed = _cfg.GetCVar(CCVars.ViewportStretch);
             IntegerScalingCheckBox.Pressed = _cfg.GetCVar(CCVars.ViewportSnapToleranceMargin) != 0;
-            ViewportVerticalFitCheckBox.Pressed = _cfg.GetCVar(CCVars.ViewportVerticalFit);
+            //ViewportVerticalFitCheckBox.Pressed = _cfg.GetCVar(CCVars.ViewportVerticalFit);
             ViewportLowResCheckBox.Pressed = !_cfg.GetCVar(CCVars.ViewportScaleRender);
             ParallaxLowQualityCheckBox.Pressed = _cfg.GetCVar(CCVars.ParallaxLowQuality);
             FpsCounterCheckBox.Pressed = _cfg.GetCVar(CCVars.HudFpsCounterVisible);
-            ViewportWidthSlider.Value = _cfg.GetCVar(CCVars.ViewportWidth);
+            //ViewportWidthSlider.Value = _cfg.GetCVar(CCVars.ViewportWidth);
 
             _cfg.OnValueChanged(CCVars.ViewportMinimumWidth, _ => UpdateViewportWidthRange());
             _cfg.OnValueChanged(CCVars.ViewportMaximumWidth, _ => UpdateViewportWidthRange());
@@ -106,6 +114,12 @@ namespace Content.Client.Options.UI.Tabs
             UpdateApplyButton();
         }
 
+        private void OnViewportFilterChanged(OptionButton.ItemSelectedEventArgs args)
+        {
+            ViewportFilterOption.SelectId(args.Id);
+            UpdateApplyButton();
+        }
+
         private void OnApplyButtonPressed(BaseButton.ButtonEventArgs args)
         {
             _cfg.SetCVar(CVars.DisplayVSync, VSyncCheckBox.Pressed);
@@ -114,15 +128,18 @@ namespace Content.Client.Options.UI.Tabs
             _cfg.SetCVar(CVars.DisplayWindowMode,
                          (int) (FullscreenCheckBox.Pressed ? WindowMode.Fullscreen : WindowMode.Windowed));
             _cfg.SetCVar(CVars.DisplayUIScale, UIScaleOptions[UIScaleOption.SelectedId]);
+
+            _cfg.SetCVar(CCVars.ViewportFilter, ViewportFilterOptions[ViewportFilterOption.SelectedId]);
+
             _cfg.SetCVar(CCVars.ViewportStretch, ViewportStretchCheckBox.Pressed);
             _cfg.SetCVar(CCVars.ViewportFixedScaleFactor, (int) ViewportScaleSlider.Value);
             _cfg.SetCVar(CCVars.ViewportSnapToleranceMargin,
                          IntegerScalingCheckBox.Pressed ? CCVars.ViewportSnapToleranceMargin.DefaultValue : 0);
-            _cfg.SetCVar(CCVars.ViewportVerticalFit, ViewportVerticalFitCheckBox.Pressed);
+            //_cfg.SetCVar(CCVars.ViewportVerticalFit, ViewportVerticalFitCheckBox.Pressed);
             _cfg.SetCVar(CCVars.ViewportScaleRender, !ViewportLowResCheckBox.Pressed);
             _cfg.SetCVar(CCVars.ParallaxLowQuality, ParallaxLowQualityCheckBox.Pressed);
             _cfg.SetCVar(CCVars.HudFpsCounterVisible, FpsCounterCheckBox.Pressed);
-            _cfg.SetCVar(CCVars.ViewportWidth, (int) ViewportWidthSlider.Value);
+            //_cfg.SetCVar(CCVars.ViewportWidth, (int) ViewportWidthSlider.Value);
 
             _cfg.SaveToFile();
             UpdateApplyButton();
@@ -145,27 +162,29 @@ namespace Content.Client.Options.UI.Tabs
             var isFullscreenSame = FullscreenCheckBox.Pressed == ConfigIsFullscreen;
             var isLightingQualitySame = LightingPresetOption.SelectedId == GetConfigLightingQuality();
             var isUIScaleSame = MathHelper.CloseToPercent(UIScaleOptions[UIScaleOption.SelectedId], ConfigUIScale);
+            var isViewportFilterSame = ViewportFilterOptions[ViewportFilterOption.SelectedId] == _cfg.GetCVar(CCVars.ViewportFilter);
             var isVPStretchSame = ViewportStretchCheckBox.Pressed == _cfg.GetCVar(CCVars.ViewportStretch);
             var isVPScaleSame = (int) ViewportScaleSlider.Value == _cfg.GetCVar(CCVars.ViewportFixedScaleFactor);
             var isIntegerScalingSame = IntegerScalingCheckBox.Pressed == (_cfg.GetCVar(CCVars.ViewportSnapToleranceMargin) != 0);
-            var isVPVerticalFitSame = ViewportVerticalFitCheckBox.Pressed == _cfg.GetCVar(CCVars.ViewportVerticalFit);
+            //var isVPVerticalFitSame = ViewportVerticalFitCheckBox.Pressed == _cfg.GetCVar(CCVars.ViewportVerticalFit);
             var isVPResSame = ViewportLowResCheckBox.Pressed == !_cfg.GetCVar(CCVars.ViewportScaleRender);
             var isPLQSame = ParallaxLowQualityCheckBox.Pressed == _cfg.GetCVar(CCVars.ParallaxLowQuality);
             var isFpsCounterVisibleSame = FpsCounterCheckBox.Pressed == _cfg.GetCVar(CCVars.HudFpsCounterVisible);
-            var isWidthSame = (int) ViewportWidthSlider.Value == _cfg.GetCVar(CCVars.ViewportWidth);
+            //var isWidthSame = (int) ViewportWidthSlider.Value == _cfg.GetCVar(CCVars.ViewportWidth);
 
             ApplyButton.Disabled = isVSyncSame &&
                                    isFullscreenSame &&
                                    isLightingQualitySame &&
                                    isUIScaleSame &&
-                                   isVPStretchSame &&
+                                   isViewportFilterSame &&
                                    isVPScaleSame &&
                                    isIntegerScalingSame &&
-                                   isVPVerticalFitSame &&
+                                   isVPStretchSame &&
                                    isVPResSame &&
                                    isPLQSame &&
-                                   isFpsCounterVisibleSame &&
-                                   isWidthSame;
+                                   isFpsCounterVisibleSame;
+                                   //isWidthSame;
+                                   //isVPVerticalFitSame &&
         }
 
         private bool ConfigIsFullscreen =>
@@ -245,8 +264,8 @@ namespace Content.Client.Options.UI.Tabs
         {
             ViewportScaleBox.Visible = !ViewportStretchCheckBox.Pressed;
             IntegerScalingCheckBox.Visible = ViewportStretchCheckBox.Pressed;
-            ViewportVerticalFitCheckBox.Visible = ViewportStretchCheckBox.Pressed;
-            ViewportWidthSlider.Visible = ViewportWidthSliderDisplay.Visible = !ViewportStretchCheckBox.Pressed || ViewportStretchCheckBox.Pressed && !ViewportVerticalFitCheckBox.Pressed;
+            //ViewportVerticalFitCheckBox.Visible = ViewportStretchCheckBox.Pressed;
+            //ViewportWidthSlider.Visible = ViewportWidthSliderDisplay.Visible = !ViewportStretchCheckBox.Pressed || ViewportStretchCheckBox.Pressed && !ViewportVerticalFitCheckBox.Pressed;
             ViewportScaleText.Text = Loc.GetString("ui-options-vp-scale", ("scale", ViewportScaleSlider.Value));
         }
 
@@ -255,13 +274,13 @@ namespace Content.Client.Options.UI.Tabs
             var min = _cfg.GetCVar(CCVars.ViewportMinimumWidth);
             var max = _cfg.GetCVar(CCVars.ViewportMaximumWidth);
 
-            ViewportWidthSlider.MinValue = min;
-            ViewportWidthSlider.MaxValue = max;
+            //ViewportWidthSlider.MinValue = min;
+            //ViewportWidthSlider.MaxValue = max;
         }
 
         private void UpdateViewportWidthDisplay()
         {
-            ViewportWidthSliderDisplay.Text = Loc.GetString("ui-options-vp-width", ("width", (int) ViewportWidthSlider.Value));
+            //ViewportWidthSliderDisplay.Text = Loc.GetString("ui-options-vp-width", ("width", (int) ViewportWidthSlider.Value));
         }
     }
 }

@@ -89,3 +89,23 @@
 - type: font
   id: LoraBoldItalic
   path: /Fonts/Lora/Lora-BoldItalic.ttf
+
+- type: font
+  id: BlackmoorLet
+  path: /Fonts/BlackmoorLet/BlackmoorLet.ttf
+
+- type: font
+  id: GoMono
+  path: /Fonts/GoMono/GoMonoNerdFontMono-Regular.ttf
+
+- type: font
+  id: GoMonoItalic
+  path: /Fonts/GoMono/GoMonoNerdFontMono-Italic.ttf
+
+- type: font
+  id: GoMonoBold
+  path: /Fonts/GoMono/GoMonoNerdFontMono-Bold.ttf
+
+- type: font
+  id: GoMonoBoldItalic
+  path: /Fonts/GoMono/GoMonoNerdFontMono-BoldItalic.ttf

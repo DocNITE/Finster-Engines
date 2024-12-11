@@ -9,6 +9,7 @@ using Robust.Shared.Graphics;
 using Robust.Shared.IoC;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Robust.Shared.ViewVariables;
@@ -24,6 +25,9 @@ namespace Content.Client.Viewport
         [Dependency] private readonly IClyde _clyde = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
+
+        // Drawing Shader
+        public ShaderInstance? Shader;
 
         // Internal viewport creation is deferred.
         private IClydeViewport? _viewport;
@@ -151,6 +155,8 @@ namespace Content.Client.Viewport
             DebugTools.AssertNotNull(_viewport);
 
             _viewport!.Render();
+
+            handle.UseShader(Shader);
 
             if (_queuedScreenshots.Count != 0)
             {

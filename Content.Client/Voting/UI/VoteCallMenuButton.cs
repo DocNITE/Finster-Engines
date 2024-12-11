@@ -9,7 +9,7 @@ namespace Content.Client.Voting.UI
     ///     LITERALLY just a button that opens the vote call menu.
     ///     Automatically disables itself if the client cannot call votes.
     /// </summary>
-    public sealed class VoteCallMenuButton : WhiteLobbyTextButton
+    public sealed class VoteCallMenuButton : Button
     {
         [Dependency] private readonly IVoteManager _voteManager = default!;
 
@@ -17,7 +17,7 @@ namespace Content.Client.Voting.UI
         {
             IoCManager.InjectDependencies(this);
 
-            ButtonText = Loc.GetString("ui-vote-menu-button");
+            Text = Loc.GetString("ui-vote-menu-button");
             OnPressed += OnOnPressed;
         }
 
